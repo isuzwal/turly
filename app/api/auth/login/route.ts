@@ -44,7 +44,7 @@ export async function POST(req:Request){
       throw new Error("Invalid credentials");
     } 
   // set cookies here 
-  const token=jwt.sign({id:user.id},process.env.JWT_SECRET!, { expiresIn: '2h' })
+  const token=jwt.sign({id:user.id},process.env.JWT_SECRET!, { expiresIn: '7d' })
   // this beacuse of the samesite 
   const cookie=serialize('token',token,{
     httpOnly:true,

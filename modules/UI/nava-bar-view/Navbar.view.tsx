@@ -68,9 +68,7 @@ export const NavbarView = ({ username }: NavbarViewProps) => {
               </a>
               <Github className="w-4 h-4 ml-1" />
             </Button>
-               <button className="cursor-pointer">
               <Theme />
-            </button>
           </div>
 
           <button
