@@ -60,7 +60,7 @@ export const SingInView = () => {
       });
       if (res.status == 200 || res.status == 201) {
         toast.success(res.data.message || "User created successfully");
-        router.push("/auth/login");
+        router.push("/login");
       }
     } catch (err: any) {
       if (err.response) {
@@ -73,7 +73,7 @@ export const SingInView = () => {
     }
   };
   return (
-    <div className="flex  flex-col  justify-center gap-6 ">
+    <div className="flex  flex-col  justify-center gap-6 dark:bg-neutral-950 bg-neutral-50 ">
       <Link href="/" className="group flex items-center gap-1 px-2  cursor-pointer">
         <ArrowLeft size={14} className="transition-colors group-hover:text-gray-500 " />
         <span className="transition-colors text-sm group-hover:text-gray-500 ">Back</span>
@@ -157,7 +157,7 @@ export const SingInView = () => {
               <div className="text-center text-sm">
                 Already have an account ?{" "}
                 <Link
-                  href={"/auth/login"}
+                  href={"/login"}
                   className=" font-semibold tex-[14px]   underline underline-offset-4">
                   Login
                 </Link>

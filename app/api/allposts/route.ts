@@ -9,6 +9,7 @@ export async function GET() {
           select: {
             id: true,
             username: true,
+            profile_image:true
            
           },
         },

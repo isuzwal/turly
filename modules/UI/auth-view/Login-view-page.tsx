@@ -138,7 +138,7 @@ export const LoginPageView = () => {
               <div className="text-center text-sm">
                 Did't have an account ?{" "}
                 <Link
-                  href={"/auth/signup"}
+                  href={"/signup"}
                   className=" font-semibold tex-[14px]   underline underline-offset-4">
                   Sign-up
                 </Link>

@@ -25,7 +25,7 @@ export async function POST(req:Request) {
             where:{email},
         });
         if(isUserexits){
-            return new Response(JSON.stringify({error:"user already exits "}),{
+            return new Response(JSON.stringify({error:"Account already exits "}),{
                 status:409,headers:{"Content-Type":"application/json"}
             })
         }
@@ -41,7 +41,7 @@ export async function POST(req:Request) {
          })
          // response
           return new Response(JSON.stringify(
-            { message: "User created successfully" }),
+            { message: "Account created successfully" }),
             { status: 201,headers: { "Content-Type": "application/json" },});
     }catch(error){
         console.log(error)

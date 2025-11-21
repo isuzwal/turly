@@ -19,6 +19,7 @@ model User {
   email     String     @unique
   username  String     @unique
   password  String
+  profile_image String?  @default("/images/kw.jpeg")
   posts     Post[]
   bookmarks Bookmarks[]
 }

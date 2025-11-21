@@ -14,7 +14,7 @@ async function getCurrentloginuser(token: string) {
       where: { id: decoded.id },
       select: { id: true, username: true, email: true, posts: true },
     })
-    return user;
+    return user ;
 
   } catch (error) {
     console.log(error)
@@ -30,6 +30,8 @@ async function getProfileUser(name: string) {
         username: true,
         email: true,
         posts: true,
+        profile_image:true,
+         
       },
     });
     return profileUser;
@@ -50,14 +52,13 @@ export default async function Page({ params }: PageProps) {
   const { name } = await params;
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
-  let currentloginuser = null;
   if (token) {
-    currentloginuser = await getCurrentloginuser(token);
+     await getCurrentloginuser(token);
   }
   const profileUser = await getProfileUser(name);
   if (!profileUser) {
     notFound();
   }
 
-  return <Profile userInfo={profileUser} currentuser={currentloginuser} />;
+  return <Profile userInfo={profileUser} />;
 }
