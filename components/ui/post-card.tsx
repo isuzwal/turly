@@ -107,9 +107,10 @@ export default function PostCard() {
         <div key={post.id}>
           <Card
             key={post.id}
-            className="border dark:border-neutral-900 border-zinc-200 rounded-md  ">
+            className="border dark:border-neutral-900 border-zinc-200 rounded-xl  px-3 ">
             <CardHeader className="p-0">
-              <div className="flex  px-3 py-1.5 w-fit rounded-md flex-row items-center justify-start gap-1">
+              <div className="flex px-3 py-1.5  border w-fit rounded-md flex-row items-center justify-start gap-1   bg-zinc-100 border-neutral-200 shadow-[inset_0_4px_6px_rgba(210,210,210,0.3)]
+                dark:shadow-[inset_0_4px_6px_rgba(52,52,52,0.5)] dark:bg-neutral-950/80 dark:border-neutral-900  ">
                 <Image
                   src={post.author?.profile_image ?? " "}
                   width={20}
