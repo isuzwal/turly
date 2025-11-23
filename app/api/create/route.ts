@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req:Request){
+export async function POST(req:NextRequest){
     try{
         const cookieStore= await cookies();
         const token= cookieStore.get("token")
-        console.log(token);
+  
         if (!token) {
             return NextResponse.json(
                 { error: "Authorization token not found" },
@@ -16,7 +16,6 @@ export async function POST(req:Request){
         }
           const tokenValue = token.value;
           let decodedToken;
-          // decode the token
         try{
             decodedToken=jwt.verify(tokenValue,process.env.JWT_SECRET!)
         }catch(err){

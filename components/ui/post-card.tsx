@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { toast } from "sonner";
 import PostCardLoading from "./loading";
 import Image from "next/image";
+import axios from "axios";
 export interface Post {
   id: string;
   title: string;
@@ -78,10 +79,11 @@ export default function PostCard() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch("/api/allposts");
-        const data = await res.json();
-        await new Promise((r) => setTimeout(r, 600));
-        setPosts(data);
+        const res = await axios.get("/api/allposts");
+        if(res.status==200){
+          setPosts(res.data);
+        }
+      
       } catch (err: any) {
         if (err.response) {
           toast.error(err.response.data);
@@ -96,7 +98,7 @@ export default function PostCard() {
     fetchPosts();
   }, []);
 
-  console.log(posts);
+
   if (loading) {
     return <PostCardLoading />;
   }
@@ -109,7 +111,7 @@ export default function PostCard() {
             key={post.id}
             className="border dark:border-neutral-900 border-zinc-200 rounded-xl  px-3 ">
             <CardHeader className="p-0">
-              <div className="flex px-3 py-1.5  border w-fit rounded-md flex-row items-center justify-start gap-1   bg-zinc-100 border-neutral-200 shadow-[inset_0_4px_6px_rgba(210,210,210,0.3)]
+              <Link href={`/author/${post.author.username}`} className="flex px-3  cursor-pointer py-1.5  border w-fit rounded-md flex-row items-center justify-start gap-1   bg-zinc-100 border-neutral-200 shadow-[inset_0_4px_6px_rgba(210,210,210,0.3)]
                 dark:shadow-[inset_0_4px_6px_rgba(52,52,52,0.5)] dark:bg-neutral-950/80 dark:border-neutral-900  ">
                 <Image
                   src={post.author?.profile_image ?? " "}
@@ -122,7 +124,7 @@ export default function PostCard() {
                 <p className="text-sm font-semibold dark:text-neutral-500 text-neutral-700">
                   {post.author?.username ?? "Unknown Author"}
                 </p>
-              </div>
+              </Link>
             </CardHeader>
             <Link key={post.id} href={`/post/${post.id}`} className="flex flex-col gap-1 px-2">
               <CardTitle className="text-xl ">

@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import {signIn} from "next-auth/react"
 import { FcGoogle } from "react-icons/fc" 
+
 export const LoginPageView = () => {
   const [loading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();

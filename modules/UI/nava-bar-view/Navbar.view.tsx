@@ -3,10 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Theme } from "@/components/ui/theme";
 import { LogOut, PlusCircle } from "lucide-react";
 
-import { Turtle, Github, Star, Menu, X } from "lucide-react";
+import { Turtle} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 
 interface NavbarViewProps {
   username?: string | null;
@@ -15,39 +19,34 @@ interface NavbarViewProps {
 
 export const NavbarView = ({ username, profile_image }: NavbarViewProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
- const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const router=useRouter()
 
-   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsExpanded(false);
+
+
+// Logout Function
+  const LogoutAccount = async () => {
+    try {
+      const res = await axios.get("/api/logout");
+      if (res.status === 200) {
+        router.push("/login");
+        toast.success("Logout Successfully");
       }
-    };
-
-    if (isExpanded) {
-      document.addEventListener("mousedown", handleClickOutside);
+    } catch (error) {
+       toast.error("Fail to logout ");
     }
+  };
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isExpanded]);
 
   const renderUserButton = () => {
     if (username) {
       return (
-        <div  
-        ref={dropdownRef}
-        className="max-w-48 mx-auto w-full h-auto rounded-xl gap-4 bg-neutral-50 border border-neutral-100 dark:bg-neutral-900  dark:border-neutral-950  flex flex-col items-center justify-start px-2 py-5 z-50">
+        <div  className="max-w-48 mx-auto w-full h-auto rounded-xl gap-4 bg-neutral-50 border border-neutral-100 dark:bg-neutral-900  dark:border-neutral-950  flex flex-col items-center justify-start px-2 py-5 z-50">
           <h1
             className="w-full flex gap-1 items-center  font-medium hover:bg-neutral-200  rounded-[8px] py-1 px-2 cursor-pointer border bg-secondary    dark:bg-neutral-950/80 dark:border-neutral-950 dark:hover:bg-neutral-950 hover:opacity-60 shadow-xs
           hover:border-neutral-100 duration-300 ease-in-out transition-all 
           text-neutral-600 dark:text-neutral-100">
             <Image
-              src={profile_image ?? " "}
+              src={profile_image ?? "/images/kw.jpeg "}
               alt="_profile_image"
               width={24}
               height={24}
@@ -72,7 +71,9 @@ export const NavbarView = ({ username, profile_image }: NavbarViewProps) => {
             </Link>
             <Theme />
           </div>
-          <Button  className="w-full flex items-center cursor-pointer bg-red-500 text-neutral-50 hover:bg-red-400">
+          <Button  
+           onClick={()=>LogoutAccount()}
+           className="w-full flex items-center cursor-pointer bg-red-500 text-neutral-50 hover:bg-red-400">
             <span>Logout</span>
             <LogOut className="size-4" />
             </Button>
@@ -80,11 +81,11 @@ export const NavbarView = ({ username, profile_image }: NavbarViewProps) => {
       );
     }
     return (
-      <div className="flex gap-1 items-center">
-      <Button asChild variant="outline" className="font-semibold px-6 py-1.5">
-        <Link href="/login">Start</Link>
-      </Button>
+      <div className="flex flex-col w-full gap-1 items-center border rounded-md p-2  bg-slate-100   border-slate-100 dark:bg-neutral-900  dark:border-neutral-900 ">
         <Theme />
+       <Button asChild variant="outline" className="font-semibold px-6 py-1.5 w-full">
+         <Link href="/login">Start</Link>
+      </Button>
       </div>
     );
   };
@@ -94,12 +95,12 @@ export const NavbarView = ({ username, profile_image }: NavbarViewProps) => {
     <div className=" w-full border-b dark:bg-neutral-950 dark:border-neutral-900 border-neutral-400 z-20 bg-neutral-100 flex justify-center fixed">
       <div className="max-w-7xl mx-auto w-full relative ">
         <div className="flex justify-between items-center px-4 py-3">
-          <div className="flex gap-2 items-center">
-            <Turtle size={25} />
-            <h1 className="font-semibold text-base">Turly</h1>
+          <div className="flex gap-1 items-center">
+            <Turtle size={25} className="-rotate-12" />
+            <h1 className="font-semibold font-mono text-base">Turly</h1>
           </div>
-               <Image
-              src={profile_image ?? " "}
+              <Image
+              src={(profile_image ?? "/images/kw.jpeg").trim()}
               alt="_profile_image"
               width={30}
               height={30}
@@ -109,7 +110,7 @@ export const NavbarView = ({ username, profile_image }: NavbarViewProps) => {
         </div>
         {isExpanded && (
           <div className=" absolute right-2 top-14 z-20 max-w-44 mx-auto w-full rounded-md p-1">
-        {renderUserButton()}
+           {renderUserButton()}
           </div>
         )}
       </div>

@@ -29,16 +29,8 @@ export async function POST(req:Request){
         headers: { "Content-Type": "application/json" },
       });
   }
- //-> user who login with google 
-  if (!user.password) {
-  return new Response(
-    JSON.stringify({ error: "This account was created with Google. Please log in with Google." }),
-    {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    }
-  );
-}
+
+
   const isMatchPassowrd=await compare(password,user.password);
   if(!isMatchPassowrd){
       throw new Error("Invalid credentials");
