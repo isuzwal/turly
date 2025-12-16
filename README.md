@@ -41,4 +41,8 @@ A modern, blog platform built with **Next.js**, **JWT authentication**, **Tailwi
 - **Database:** Prisma ORM with PostgreSQL
 - **Markdown Rendering:** React Markdown + Remark GFM
 - **Code Highlighting:** Prism.js
-- **Icons:** Lucide Re
+- **Icons:** Lucide React
+
+  #Preview
+  <img width="4800" height="2700" alt="turly" src="https://github.com/user-attachments/assets/7e227b3c-46de-4797-b924-bc9bf8da1dad" />
+
