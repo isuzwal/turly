@@ -43,6 +43,6 @@ A modern, blog platform built with **Next.js**, **JWT authentication**, **Tailwi
 - **Code Highlighting:** Prism.js
 - **Icons:** Lucide React
 
-  #Preview
+  ## Preview
   <img width="4800" height="2700" alt="turly" src="https://github.com/user-attachments/assets/7e227b3c-46de-4797-b924-bc9bf8da1dad" />
 
